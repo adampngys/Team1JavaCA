@@ -1,6 +1,8 @@
 package com.nus.iss.model;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -9,16 +11,20 @@ public class LecturerCourse {
 	
 	
 	private int lect_id_pk;
-	private String course_id_pk;
+	
+	@OneToOne
+	@JoinColumn(name="course_id_pk")
+	private Course course;
+	
 	public LecturerCourse() {
 		
 	}
 	
 	
-	public LecturerCourse(int lect_id_pk, String course_id_pk) {
+	public LecturerCourse(int lect_id_pk, Course course) {
 		super();
 		this.lect_id_pk = lect_id_pk;
-		this.course_id_pk = course_id_pk;
+		this.course = course;
 	}
 
 
@@ -32,13 +38,19 @@ public class LecturerCourse {
 	}
 
 
-	public String getCourse_id_pk() {
-		return course_id_pk;
+	public Course getCourse() {
+		return course;
 	}
 
 
-	public void setCourse_id_pk(String course_id_pk) {
-		this.course_id_pk = course_id_pk;
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+
+	@Override
+	public String toString() {
+		return "LecturerCourse [lect_id_pk=" + lect_id_pk + ", course=" + course + "]";
 	}
 	
 	
