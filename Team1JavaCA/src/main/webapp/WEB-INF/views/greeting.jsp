@@ -9,6 +9,6 @@
 		<body>
 	<h1>Hello!</h1>
 	<h1>${msg}</h1>
-	<h2>BYE!!!!</h2>
+	<h2>BYE!!!!!!</h2>
 		</body>
 </html>
