@@ -30,7 +30,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Team1JavaCADB`.`student` (
   `std_id_pk` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` NVARCHAR(45) NOT NULL,
   `NRIC` NVARCHAR(45) NOT NULL,
   `address` NVARCHAR(150) NOT NULL,
   `phone` NVARCHAR(45) NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `Team1JavaCADB`.`lecturer` (
   `lect_id_pk` INT NOT NULL AUTO_INCREMENT,
   `name` NVARCHAR(45) NOT NULL,
   `faculty` NVARCHAR(45) NOT NULL,
-  `phone` INT NOT NULL,
+  `phone` NVARCHAR(45) NOT NULL,
   `dob` DATETIME NOT NULL,
   `email` NVARCHAR(45) NOT NULL,
   `user_id_fk` NVARCHAR(45) NOT NULL,
@@ -81,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `Team1JavaCADB`.`course` (
   `duration` INT NOT NULL,
   `size` INT NOT NULL,
   `credit` INT NOT NULL,
+  `vacancy` INT NOT NULL,
   PRIMARY KEY (`course_id_pk`))
 ENGINE = InnoDB;
 
@@ -89,10 +90,11 @@ ENGINE = InnoDB;
 -- Table `Team1JavaCADB`.`std_course`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `Team1JavaCADB`.`std_course` (
-  `std_id_pk` NVARCHAR(45) NOT NULL,
+  `std_id_pk` INT NOT NULL,
   `course_id_pk` NVARCHAR(45) NOT NULL,
   `GPA` DECIMAL NULL,
   `grade` NVARCHAR(45) NULL,
+  `status` NVARCHAR(45) NULL,
   PRIMARY KEY (`std_id_pk`, `course_id_pk`),
   CONSTRAINT `course_id`
     FOREIGN KEY (`course_id_pk`)
@@ -121,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `Team1JavaCADB`.`lecturer_course` (
     REFERENCES `Team1JavaCADB`.`lecturer` (`lect_id_pk`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `course_id`
+  CONSTRAINT `course_id2`
     FOREIGN KEY (`course_id_pk`)
     REFERENCES `Team1JavaCADB`.`course` (`course_id_pk`)
     ON DELETE NO ACTION
@@ -136,13 +138,30 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
+-- Data for table `Team1JavaCADB`.`user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `Team1JavaCADB`;
+INSERT INTO `Team1JavaCADB`.`user` (`user_id_pk`,`password`,`role`) VALUES('adam.png','password','student');
+INSERT INTO `Team1JavaCADB`.`user` (`user_id_pk`,`password`,`role`) VALUES('dicky.lie','password','student');
+INSERT INTO `Team1JavaCADB`.`user` (`user_id_pk`,`password`,`role`) VALUES('kip.hoe','password','student');
+INSERT INTO `Team1JavaCADB`.`user` (`user_id_pk`,`password`,`role`) VALUES('xu.dong','password','lecturer');
+INSERT INTO `Team1JavaCADB`.`user` (`user_id_pk`,`password`,`role`) VALUES('bessa.nicoletta','password','lecturer');
+INSERT INTO `Team1JavaCADB`.`user` (`user_id_pk`,`password`,`role`) VALUES('madhu.murali','password','admin');
+INSERT INTO `Team1JavaCADB`.`user` (`user_id_pk`,`password`,`role`) VALUES('aisha.ashiq','password','admin');
+
+COMMIT;
+
+
+
+-- -----------------------------------------------------
 -- Data for table `Team1JavaCADB`.`student`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Team1JavaCADB`;
-INSERT INTO `Team1JavaCADB`.`student` (`std_id_pk`, `name`, `NRIC`, `address`, `phone`, `dob`, `email`, `enrollment_date`, `user_id_fk`) VALUES (1, 'Adam Png', 'S0744185A', 'Blk 414 Sengkang Street 24, #14-01', '82234698', '11-5-1987', 'jimmichie@msn.com', '9/1/2015', 'adam.png');
-INSERT INTO `Team1JavaCADB`.`student` (`std_id_pk`, `name`, `NRIC`, `address`, `phone`, `dob`, `email`, `enrollment_date`, `user_id_fk`) VALUES (2, 'Dicky Lie', 'S7038107I', 'Blk 433 Bukit Merah Street 36, #09-39', '87736321', '27-8-1970', 'qmacro@optonline.net', '9/1/2016', 'dicky.lie');
-INSERT INTO `Team1JavaCADB`.`student` (`std_id_pk`, `name`, `NRIC`, `address`, `phone`, `dob`, `email`, `enrollment_date`, `user_id_fk`) VALUES (3, 'Poon Kip Hoe', 'S8871910G', 'Blk 26 Geylang Street 26, #05-17', '89067888', '7-12-1988', 'csilvers@icloud.com', '9/1/2015', 'kip.hoe');
+INSERT INTO `Team1JavaCADB`.`student` (`std_id_pk`, `name`, `NRIC`, `address`, `phone`, `dob`, `email`, `enrollment_date`, `user_id_fk`) VALUES (1, 'Adam Png', 'S0744185A', 'Blk 414 Sengkang Street 24, #14-01', '82234698', '1987-5-11', 'jimmichie@msn.com', '2015-1-9', 'adam.png');
+INSERT INTO `Team1JavaCADB`.`student` (`std_id_pk`, `name`, `NRIC`, `address`, `phone`, `dob`, `email`, `enrollment_date`, `user_id_fk`) VALUES (2, 'Dicky Lie', 'S7038107I', 'Blk 433 Bukit Merah Street 36, #09-39', '87736321', '1970-8-27', 'qmacro@optonline.net', '2015-1-9', 'dicky.lie');
+INSERT INTO `Team1JavaCADB`.`student` (`std_id_pk`, `name`, `NRIC`, `address`, `phone`, `dob`, `email`, `enrollment_date`, `user_id_fk`) VALUES (3, 'Poon Kip Hoe', 'S8871910G', 'Blk 26 Geylang Street 26, #05-17', '89067888', '1988-12-7', 'csilvers@icloud.com', '2015-1-9', 'kip.hoe');
 
 COMMIT;
 
@@ -152,8 +171,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Team1JavaCADB`;
-INSERT INTO `Team1JavaCADB`.`lecturer` (`lect_id_pk`, `name`, `faculty`, `phone`, `dob`, `email`, `user_id_fk`) VALUES (1, 'Bessa Nicoletta', 'Computer Science', 94463008, '14-8-1960', 'mahbub@gmail.com', 'bessa.nicoletta');
-INSERT INTO `Team1JavaCADB`.`lecturer` (`lect_id_pk`, `name`, `faculty`, `phone`, `dob`, `email`, `user_id_fk`) VALUES (2, 'Xu Dong', 'Computer Science', 94616387, '2-3-1953', 'violinhi@sbcglobal.net', 'xu.dong');
+INSERT INTO `Team1JavaCADB`.`lecturer` (`lect_id_pk`, `name`, `faculty`, `phone`, `dob`, `email`, `user_id_fk`) VALUES (1, 'Bessa Nicoletta', 'Computer Science', 94463008, '1960-8-14', 'mahbub@gmail.com', 'bessa.nicoletta');
+INSERT INTO `Team1JavaCADB`.`lecturer` (`lect_id_pk`, `name`, `faculty`, `phone`, `dob`, `email`, `user_id_fk`) VALUES (2, 'Xu Dong', 'Computer Science', 94616387, '1953-3-2', 'violinhi@sbcglobal.net', 'xu.dong');
 
 COMMIT;
 
@@ -163,8 +182,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Team1JavaCADB`;
-INSERT INTO `Team1JavaCADB`.`course` (`course_id_pk`, `name`, `startdate`, `duration`, `size`, `credit`) VALUES ('J10101', 'Java Computing', '16-10-2018', 15, 100, 6);
-INSERT INTO `Team1JavaCADB`.`course` (`course_id_pk`, `name`, `startdate`, `duration`, `size`, `credit`) VALUES ('P10101', 'Python Programming', '10-9-2018', 12, 100, 4);
+INSERT INTO `Team1JavaCADB`.`course` (`course_id_pk`, `name`, `startdate`, `duration`, `size`, `credit`, `vacancy`) VALUES ('J10101', 'Java Computing', '2018-10-16', 15, 5, 6, 0);
+INSERT INTO `Team1JavaCADB`.`course` (`course_id_pk`, `name`, `startdate`, `duration`, `size`, `credit`, `vacancy`) VALUES ('P10101', 'Python Programming', '2018-9-10', 12, 10, 4, 0);
 
 COMMIT;
 
