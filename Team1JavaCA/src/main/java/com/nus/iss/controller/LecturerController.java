@@ -55,6 +55,7 @@ public class LecturerController {
 		ModelAndView mav = new ModelAndView("lecturercourses");
 		ArrayList<Course> course = cService.allCoursesByLecturer();
 		mav.addObject("course", course);
+		System.out.println(course);
 		return mav;
 	}
 
