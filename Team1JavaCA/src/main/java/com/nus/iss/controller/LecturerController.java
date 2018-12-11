@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nus.iss.model.Course;
 import com.nus.iss.model.Lecturer;
 import com.nus.iss.model.LecturerCourse;
+import com.nus.iss.service.CourseService;
 import com.nus.iss.service.LecturerCourseService;
 import com.nus.iss.service.LecturerService;
 
@@ -25,6 +27,8 @@ import com.nus.iss.service.LecturerService;
 @RequestMapping(value = "/lecturer")
 public class LecturerController {
 	
+	@Autowired
+	private CourseService cService;
 	
 	@Autowired
 	private LecturerService lService;
@@ -49,8 +53,8 @@ public class LecturerController {
 	@RequestMapping(value = "/course/display/", method = RequestMethod.GET)
 	public ModelAndView listLecturerCoursespage() {
 		ModelAndView mav = new ModelAndView("lecturercourses");
-		ArrayList<LecturerCourse> lecturercourse = lCService.findAllCourses();
-		mav.addObject("lecturercourse", lecturercourse);
+		ArrayList<Course> course = cService.allCoursesByLecturer();
+		mav.addObject("course", course);
 		return mav;
 	}
 
