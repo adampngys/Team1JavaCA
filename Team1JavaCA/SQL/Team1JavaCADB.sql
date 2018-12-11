@@ -182,13 +182,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `Team1JavaCADB`;
-<<<<<<< HEAD
 INSERT INTO `Team1JavaCADB`.`course` (`course_id_pk`, `name`, `startdate`, `duration`, `size`, `credit`, `vacancy`) VALUES ('J10101', 'Java Computing', '2018-10-16', 15, 5, 6, 0);
 INSERT INTO `Team1JavaCADB`.`course` (`course_id_pk`, `name`, `startdate`, `duration`, `size`, `credit`, `vacancy`) VALUES ('P10101', 'Python Programming', '2018-9-10', 12, 10, 4, 0);
-=======
-INSERT INTO `Team1JavaCADB`.`course` (`course_id_pk`, `name`, `startdate`, `duration`, `size`, `credit`) VALUES ('J10101', 'Java Computing', '2018-10-16', 15, 100, 6);
-INSERT INTO `Team1JavaCADB`.`course` (`course_id_pk`, `name`, `startdate`, `duration`, `size`, `credit`) VALUES ('P10101', 'Python Programming', '2018-9-10', 12, 100, 4);
->>>>>>> branch 'master' of https://github.com/adampngys/Team1JavaCA.git
 
 COMMIT;
 
